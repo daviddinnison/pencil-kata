@@ -1,6 +1,7 @@
 const pencil = class {
-    constructor(x) {
-        this.val = x;
+    constructor(durability, length) {
+        this.durability = durability;
+        this.length = length;
     }
 }
 

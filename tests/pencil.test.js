@@ -1,10 +1,9 @@
 const pencil = require('../src/pencil');
 
-describe('initial sanity check', () => {
-  it('should return the same input as a val', () => {
-    const result = new pencil(1);
-    expect(result.val).toBe(1);
+describe('pencil initialization', () => {
+  it('should be given a value for durability and length', () => {
+    const result = new pencil(1, 2);
+    expect(result.durability).toBe(1);
+    expect(result.length).toBe(2);
   });
 });
-
-console.log(pencil);
