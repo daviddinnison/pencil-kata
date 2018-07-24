@@ -7,3 +7,11 @@ describe('pencil initialization', () => {
     expect(result.length).toBe(2);
   });
 });
+
+describe('pencil writing functionality', () => {
+  it('should accept a string as an input', () => {
+    const result = new pencil(100, 5);
+    result.write('test');
+    expect(result.currentText).toBe('test');
+  });
+});
