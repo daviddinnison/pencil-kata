@@ -53,4 +53,11 @@ describe('pencil writing functionality', () => {
     expect(result.durability).toBe(99);
     expect(result.currentText).toBe(' a   ');
   });
+
+  it('should decrease durability by 1 for misc characters', () => {
+    const result = new pencil(100, 5);
+    result.write('!?');
+    expect(result.durability).toBe(98);
+    expect(result.currentText).toBe('!?');
+  });
 });

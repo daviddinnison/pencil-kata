@@ -29,6 +29,7 @@ const pencil = class {
       
       else {
         result.push(character);
+        this.durability = this.durability - 1;
       }
     });
 
