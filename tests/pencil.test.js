@@ -24,4 +24,14 @@ describe('pencil writing functionality', () => {
       }).toThrow();
     });
   });
+
+  it('should append additional messages to the existing message', () => {
+    const result = new pencil(100, 5);
+    const message1 = 'this is message 1';
+    const message2 = 'this is message 2';
+    result.write(message1);
+    result.write(message2);
+
+    expect(result.currentText).toBe(message1 + message2);
+  });
 });
