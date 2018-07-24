@@ -14,4 +14,14 @@ describe('pencil writing functionality', () => {
     result.write('test');
     expect(result.currentText).toBe('test');
   });
+
+  it('should not accept anything besides strings as an input', () => {
+    const badTypes = [null, undefined, NaN, 0, false];
+    const result = new pencil(100, 5);
+    badTypes.forEach(arg => {
+      expect(() => {
+        result.write(arg);
+      }).toThrow();
+    });
+  });
 });
