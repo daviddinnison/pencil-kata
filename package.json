@@ -1,0 +1,14 @@
+{
+  "name": "pencil-kata",
+  "version": "1.0.0",
+  "description": "JavaScript implementation of Pillar pencil durability Kata using TDD with Jest",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "David Dinnison",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^23.4.1"
+  }
+}
