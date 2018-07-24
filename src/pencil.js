@@ -13,10 +13,18 @@ const pencil = class {
     }
 
     message.split('').forEach(character => {
-      if (character.toUpperCase() === character) {
+      if (character === ' ') {
+        result.push(character);
+      } 
+      else if (character.toUpperCase() === character) {
         result.push(character);
         this.durability = this.durability - 2;
-      } else {
+      } 
+      else if (character.toLowerCase() === character) {
+        result.push(character);
+        this.durability = this.durability - 1;
+      } 
+      else {
         result.push(character);
       }
     });
