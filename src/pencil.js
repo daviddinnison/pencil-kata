@@ -15,15 +15,18 @@ const pencil = class {
     message.split('').forEach(character => {
       if (character === ' ') {
         result.push(character);
-      } 
-      else if (character.toUpperCase() === character) {
+      }
+      //   uppercase
+      else if (/^[A-Z]/.test(character)) {
         result.push(character);
         this.durability = this.durability - 2;
-      } 
-      else if (character.toLowerCase() === character) {
+      }
+      //   lowercase
+      else if (/^[a-z]/.test(character)) {
         result.push(character);
         this.durability = this.durability - 1;
       } 
+      
       else {
         result.push(character);
       }
