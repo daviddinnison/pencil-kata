@@ -6,11 +6,22 @@ const pencil = class {
   }
 
   write(message) {
+    let result = [];
+
     if (typeof message !== 'string') {
       throw Error('Please supply a string');
     }
 
-    this.currentText += message;
+    message.split('').forEach(character => {
+      if (character.toUpperCase() === character) {
+        result.push(character);
+        this.durability = this.durability - 2;
+      } else {
+        result.push(character);
+      }
+    });
+
+    this.currentText += result.join('');
   }
 };
 

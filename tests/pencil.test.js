@@ -34,4 +34,10 @@ describe('pencil writing functionality', () => {
 
     expect(result.currentText).toBe(message1 + message2);
   });
+
+  it('should decrease durability by 2 if using an uppercase letter', () => {
+    const result = new pencil(100, 5);
+    result.write('ABC');
+    expect(result.durability).toBe(94);
+  });
 });
