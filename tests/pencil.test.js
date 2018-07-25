@@ -170,4 +170,15 @@ describe('editing functionality', () => {
       result.edit('onion', 'david');
     }).toThrow('Please supply a valid number for positioning the string to edit');
   });
+
+  it('should throw an error if the position does not exist in the text', () => {
+    const result = new pencil(200, 5);
+    result.write('abc');
+    expect(() => {
+      result.edit('a', 10);
+    }).toThrow('The position you supplied does exist in the text');
+    expect(() => {
+      result.edit('a', -1);
+    }).toThrow('The position you supplied does exist in the text');
+  });
 });

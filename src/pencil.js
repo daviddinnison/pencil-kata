@@ -81,12 +81,17 @@ const pencil = class {
   }
 
   edit(string, position) {
+    const text = this.currentText;
     if (typeof string !== 'string') {
       throw new Error('Please supply a string for editing');
     }
 
     if (typeof position !== 'number') {
       throw new Error('Please supply a valid number for positioning the string to edit');
+    }
+
+    if (position > text.length || position < 0) {
+      throw new Error('The position you supplied does exist in the text');
     }
   }
 };
