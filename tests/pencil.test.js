@@ -181,4 +181,11 @@ describe('editing functionality', () => {
       result.edit('a', -1);
     }).toThrow('The position you supplied does exist in the text');
   });
+
+  it('should edit over whitespace with the given character, and replace existing characters with the @ character', () => {
+    const result = new pencil(100, 5);
+    result.write('An       a day keeps the doctor away');
+    result.edit('artichoke', 3);
+    expect(result.currentText).toBe('An artich@k@ay keeps the doctor away');
+  });
 });

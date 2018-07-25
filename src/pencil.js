@@ -93,6 +93,22 @@ const pencil = class {
     if (position > text.length || position < 0) {
       throw new Error('The position you supplied does exist in the text');
     }
+
+    const newStringMiddle = text
+      .substring(position, position + string.length)
+      .split('')
+      .map((character, i) => {
+        if (character !== ' ') {
+          return '@';
+        }
+        return string.charAt(i);
+      })
+      .join('');
+
+    const newStringBeginning = text.substring(0, position);
+    const newStringEnd = text.substring(position + string.length);
+
+    this.currentText = newStringBeginning + newStringMiddle + newStringEnd;
   }
 };
 
