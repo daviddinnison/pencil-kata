@@ -156,3 +156,18 @@ describe('eraser degradation functionality', () => {
     expect(result.currentText).toBe('Buffalo B   ');
   });
 });
+
+describe('editing functionality', () => {
+  it('should accept a desired string and a position to edit', () => {
+    const result = new pencil(200, 5);
+    result.write('An       a day keeps the doctor away');
+
+    expect(() => {
+      result.edit(1, 1);
+    }).toThrow('Please supply a string for editing');
+
+    expect(() => {
+      result.edit('onion', 'david');
+    }).toThrow('Please supply a valid number for positioning the string to edit');
+  });
+});

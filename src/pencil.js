@@ -79,6 +79,16 @@ const pencil = class {
 
     this.currentText = beforeEraseString + afterEraseString;
   }
+
+  edit(string, position) {
+    if (typeof string !== 'string') {
+      throw new Error('Please supply a string for editing');
+    }
+
+    if (typeof position !== 'number') {
+      throw new Error('Please supply a valid number for positioning the string to edit');
+    }
+  }
 };
 
 module.exports = pencil;
