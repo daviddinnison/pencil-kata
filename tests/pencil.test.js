@@ -90,4 +90,22 @@ describe('sharpening functionality', () => {
     result.sharpen();
     expect(result.durability).toBe(1);
   });
+
+  it('should not allow sharpening if the pencil is too short', () => {
+    const result = new pencil(0, 0);
+    expect(() => {
+      result.sharpen();
+    }).toThrow();
+  });
+});
+
+describe('eraser functionality', () => {
+  const result = new pencil(100, 5);
+  result.write('Hello this is a string');
+
+  it('should throw an error if the string to erase is not in the current text', () => {
+    expect(() => {
+      result.erase('David');
+    }).toThrow();
+  });
 });

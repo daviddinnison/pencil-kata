@@ -48,6 +48,12 @@ const pencil = class {
 
     this.durability = this.baseDurability;
   }
+
+  erase(string) {
+    if (!this.currentText.includes(string)) {
+      throw new Error('The text you are trying to erase does not exist in the current text and cannot be erased');
+    }
+  }
 };
 
 module.exports = pencil;
