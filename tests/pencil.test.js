@@ -140,5 +140,11 @@ describe('eraser degradation functionality', () => {
     expect(result.eraserDurability).toBe(100);
   });
 
-  
+  it('eraser will degrade for each character it erases, excluding blank space', () => {
+    const result = new pencil(200, 5);
+    result.write('Buffalo Bill');
+    result.erase('Bill');
+    expect(result.eraserDurability).toBe(16);
+    expect(result.currentText).toBe('Buffalo     ');
+  });
 });
