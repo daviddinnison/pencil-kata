@@ -1,7 +1,8 @@
 const pencil = class {
-  constructor(durability, length) {
-    this.durability = durability;
-    this.baseDurability = durability;
+  constructor(pencilDurability, length, eraserDurability) {
+    this.durability = pencilDurability;
+    this.baseDurability = pencilDurability;
+    this.eraserDurability = eraserDurability || 20,
     this.length = length;
     this.currentText = '';
   }

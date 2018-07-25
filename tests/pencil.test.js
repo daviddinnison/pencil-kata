@@ -122,9 +122,16 @@ describe('eraser functionality', () => {
     const result = new pencil(200, 5);
     result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
     const expectedResult = 'How much wood would a woodchuck chuck if a wood      could       wood?';
-    
+
     result.erase('chuck');
     result.erase('chuck');
     expect(result.currentText).toBe(expectedResult);
+  });
+});
+
+describe('eraser degradation functionality', () => {
+  it('if eraser durability is not supplied on pencil creation its value will be set to a default value of 20', () => {
+    const result = new pencil(200, 5);
+    expect(result.eraserDurability).toBe(20);
   });
 });
