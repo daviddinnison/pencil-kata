@@ -81,6 +81,13 @@ describe('durability functionality', () => {
     expect(result.durability).toBe(1);
     expect(result.currentText).toBe('A  ');
   });
+});
 
-
+describe('sharpening functionality', () => {
+  it('should allow the ability to sharpen to initial durability value if long enough', () => {
+    const result = new pencil(1, 1);
+    result.write('a');
+    result.sharpen();
+    expect(result.durability).toBe(1);
+  });
 });

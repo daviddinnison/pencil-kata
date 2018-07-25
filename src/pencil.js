@@ -1,6 +1,7 @@
 const pencil = class {
   constructor(durability, length) {
     this.durability = durability;
+    this.baseDurability = durability;
     this.length = length;
     this.currentText = '';
   }
@@ -38,6 +39,14 @@ const pencil = class {
     });
 
     this.currentText += result.join('');
+  }
+
+  sharpen() {
+    if (this.length < 1) {
+      throw new Error('The pencil is not long enough to be sharpened.');
+    }
+
+    this.durability = this.baseDurability;
   }
 };
 
