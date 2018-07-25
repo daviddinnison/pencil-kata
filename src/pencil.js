@@ -53,6 +53,11 @@ const pencil = class {
     if (!this.currentText.includes(string)) {
       throw new Error('The text you are trying to erase does not exist in the current text and cannot be erased');
     }
+
+    const lastOccurence = this.currentText.lastIndexOf(string);
+    const newBlankString = ' '.repeat(string.length);
+
+    this.currentText = this.currentText.slice(0, lastOccurence) + this.currentText.slice(lastOccurence).replace(string, newBlankString);
   }
 };
 

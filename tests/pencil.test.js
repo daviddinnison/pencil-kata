@@ -100,12 +100,18 @@ describe('sharpening functionality', () => {
 });
 
 describe('eraser functionality', () => {
-  const result = new pencil(100, 5);
-  result.write('Hello this is a string');
+  const result = new pencil(200, 5);
+  result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
 
   it('should throw an error if the string to erase is not in the current text', () => {
     expect(() => {
-      result.erase('David');
+      result.erase('metal');
     }).toThrow();
+  });
+
+  it('should erase the last occurence of a word', () => {
+    const expectedResult = 'How much wood would a woodchuck chuck if a woodchuck could       wood?';
+    result.erase('chuck');
+    expect(result.currentText).toBe(expectedResult);
   });
 });
