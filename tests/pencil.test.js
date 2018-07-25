@@ -62,7 +62,12 @@ describe('pencil writing functionality', () => {
   });
 });
 
-describe.only('durability functionality', () => {
+describe('durability functionality', () => {
+  it('durability should not be less than zero', () => {
+    const result = new pencil(1, 2);
+    result.write('abc');
+    expect(result.durability).toBe(0);
+  });
   it('should write spaces if there is no more durability', () => {
     const result = new pencil(2, 2);
     result.write('abc');
