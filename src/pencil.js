@@ -13,7 +13,13 @@ const pencil = class {
     }
 
     message.split('').forEach(character => {
-      if (character === ' ') {
+      //   no durability
+      if (this.durability < 1) {
+        result.push(' ');
+      }
+
+      //   space
+      else if (character === ' ') {
         result.push(character);
       }
       //   uppercase
@@ -25,9 +31,7 @@ const pencil = class {
       else if (/^[a-z]/.test(character)) {
         result.push(character);
         this.durability = this.durability - 1;
-      } 
-      
-      else {
+      } else {
         result.push(character);
         this.durability = this.durability - 1;
       }

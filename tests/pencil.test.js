@@ -61,3 +61,11 @@ describe('pencil writing functionality', () => {
     expect(result.currentText).toBe('!?');
   });
 });
+
+describe.only('durability functionality', () => {
+  it('should write spaces if there is no more durability', () => {
+    const result = new pencil(2, 2);
+    result.write('abc');
+    expect(result.currentText).toBe('ab ');
+  });
+});
