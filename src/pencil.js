@@ -2,8 +2,7 @@ const pencil = class {
   constructor(pencilDurability, length, eraserDurability) {
     this.durability = pencilDurability;
     this.baseDurability = pencilDurability;
-    this.eraserDurability = eraserDurability || 20,
-    this.length = length;
+    (this.eraserDurability = eraserDurability || 20), (this.length = length);
     this.currentText = '';
   }
 
@@ -33,7 +32,10 @@ const pencil = class {
       else if (/^[a-z]/.test(character)) {
         result.push(character);
         this.durability = this.durability - 1;
-      } else {
+      }
+
+      //   everything else
+      else {
         result.push(character);
         this.durability = this.durability - 1;
       }
@@ -51,14 +53,15 @@ const pencil = class {
   }
 
   erase(string) {
-    if (!this.currentText.includes(string)) {
+    const text = this.currentText;
+    if (!text.includes(string)) {
       throw new Error('The text you are trying to erase does not exist in the current text and cannot be erased');
     }
 
     const lastOccurence = this.currentText.lastIndexOf(string);
     const newBlankString = ' '.repeat(string.length);
 
-    this.currentText = this.currentText.slice(0, lastOccurence) + this.currentText.slice(lastOccurence).replace(string, newBlankString);
+    this.currentText = text.slice(0, lastOccurence) + text.slice(lastOccurence).replace(string, newBlankString);
   }
 };
 
