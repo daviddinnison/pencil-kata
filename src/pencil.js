@@ -13,8 +13,8 @@ const pencil = class {
     }
 
     message.split('').forEach(character => {
-      //   no durability
-      if (this.durability < 1) {
+      //   case for not enough durability. the second statement is there to make sure uppercase letters are calculated correctly since they degrade faster
+      if (this.durability < 1 || (/^[A-Z]/.test(character) && this.durability < 2)) {
         result.push(' ');
       }
 

@@ -68,9 +68,19 @@ describe('durability functionality', () => {
     result.write('abc');
     expect(result.durability).toBe(0);
   });
+
   it('should write spaces if there is no more durability', () => {
     const result = new pencil(2, 2);
     result.write('abc');
     expect(result.currentText).toBe('ab ');
   });
+
+  it('should account for uppercase letter degradation', () => {
+    const result = new pencil(3, 2);
+    result.write('ABC');
+    expect(result.durability).toBe(1);
+    expect(result.currentText).toBe('A  ');
+  });
+
+
 });
