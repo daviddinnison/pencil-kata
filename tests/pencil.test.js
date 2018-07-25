@@ -134,4 +134,9 @@ describe('eraser degradation functionality', () => {
     const result = new pencil(200, 5);
     expect(result.eraserDurability).toBe(20);
   });
+  
+  it('if eraser durability is supplied on pencil creation its value should match the input', () => {
+    const result = new pencil(200, 5, 100);
+    expect(result.eraserDurability).toBe(100);
+  });
 });
