@@ -140,11 +140,19 @@ describe('eraser degradation functionality', () => {
     expect(result.eraserDurability).toBe(100);
   });
 
-  it('eraser will degrade for each character it erases, excluding blank space', () => {
+  it('eraser should degrade for each character it erases, excluding blank space', () => {
     const result = new pencil(200, 5);
     result.write('Buffalo Bill');
     result.erase('Bill');
     expect(result.eraserDurability).toBe(16);
     expect(result.currentText).toBe('Buffalo     ');
+  });
+
+  it('eraser should erase from left to right, and if the eraser has 0 durability it will return the original character', () => {
+    const result = new pencil(200, 5, 3);
+    result.write('Buffalo Bill');
+    result.erase('Bill');
+    expect(result.eraserDurability).toBe(0);
+    expect(result.currentText).toBe('Buffalo B   ');
   });
 });
