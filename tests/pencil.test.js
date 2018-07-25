@@ -100,17 +100,30 @@ describe('sharpening functionality', () => {
 });
 
 describe('eraser functionality', () => {
-  const result = new pencil(200, 5);
-  result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
-
   it('should throw an error if the string to erase is not in the current text', () => {
+    const result = new pencil(200, 5);
+    result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
+
     expect(() => {
       result.erase('metal');
     }).toThrow();
   });
 
   it('should erase the last occurence of a word', () => {
+    const result = new pencil(200, 5);
+    result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
     const expectedResult = 'How much wood would a woodchuck chuck if a woodchuck could       wood?';
+
+    result.erase('chuck');
+    expect(result.currentText).toBe(expectedResult);
+  });
+
+  it('should erase the last occurence of a word multiple times', () => {
+    const result = new pencil(200, 5);
+    result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
+    const expectedResult = 'How much wood would a woodchuck chuck if a wood      could       wood?';
+    
+    result.erase('chuck');
     result.erase('chuck');
     expect(result.currentText).toBe(expectedResult);
   });
