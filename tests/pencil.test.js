@@ -6,6 +6,14 @@ describe('pencil initialization', () => {
 
     expect(result).toEqual(expect.objectContaining({ durability: 1, length: 2 }));
   });
+
+  it('should throw an error if a pencil is created without durability', () => {
+    const message = 'Please supply a value for pencil durability as the first argument';
+
+    expect(() => {
+      new pencil();
+    }).toThrow(message);
+  });
 });
 
 describe('pencil writing functionality', () => {
@@ -89,13 +97,13 @@ describe('durability functionality', () => {
     result.write('ABC');
     expect(result).toEqual(expect.objectContaining({ durability: 1, currentText: 'A  ' }));
   });
-  
+
   it('should account for accented/special uppercase letters', () => {
     const result = new pencil(6, 2);
 
     result.write('aÉÙ 1');
     expect(result).toEqual(expect.objectContaining({ durability: 0, currentText: 'aÉÙ 1' }));
-  })
+  });
 });
 
 describe('sharpening functionality', () => {
@@ -108,7 +116,7 @@ describe('sharpening functionality', () => {
   });
 
   it('should not allow sharpening if the pencil is too short', () => {
-    const result = new pencil(0, 0);
+    const result = new pencil(100, 0);
 
     expect(() => {
       result.sharpen();
@@ -119,7 +127,7 @@ describe('sharpening functionality', () => {
 describe('eraser functionality', () => {
   it('should throw an error if the string to erase is not in the current text', () => {
     const result = new pencil(200, 5);
-    const message = 'The text you are trying to erase does not exist in the current text and cannot be erased'
+    const message = 'The text you are trying to erase does not exist in the current text and cannot be erased';
 
     result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
     expect(() => {

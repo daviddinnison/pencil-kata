@@ -1,5 +1,9 @@
 const pencil = class {
   constructor(pencilDurability, length, eraserDurability) {
+    if (!pencilDurability) {
+      throw new Error('Please supply a value for pencil durability as the first argument');
+    }
+
     this.durability = pencilDurability;
     this.baseDurability = pencilDurability;
     this.eraserDurability = eraserDurability || 20;
