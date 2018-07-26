@@ -241,4 +241,12 @@ describe('editing functionality', () => {
     result.edit('artichoke', 3);
     expect(result.currentText).toMatch('An artich@k@ay keeps the doctor away');
   });
+
+  it('should not expand the size of existing text if the end of the text has been surpassed by the new string', () => {
+    const result = new pencil(100, 5);
+
+    result.write('test');
+    result.edit('david', 3);
+    expect(result.currentText).toMatch('tes@');
+  });
 });
