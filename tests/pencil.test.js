@@ -13,7 +13,7 @@ describe('pencil writing functionality', () => {
     const result = new pencil(100, 5);
 
     result.write('test');
-    expect(result.currentText).toBe('test');
+    expect(result.currentText).toMatch('test');
   });
 
   it('should not accept anything besides strings as an input', () => {
@@ -23,7 +23,7 @@ describe('pencil writing functionality', () => {
     badTypes.forEach(arg => {
       expect(() => {
         result.write(arg);
-      }).toThrow();
+      }).toThrow('Please supply a string');
     });
   });
 
@@ -36,7 +36,7 @@ describe('pencil writing functionality', () => {
     result.write(message1);
     result.write(message2);
 
-    expect(result.currentText).toBe(message1 + message2);
+    expect(result.currentText).toMatch(message1 + message2);
   });
 
   it('should decrease durability by 2 if writing an uppercase letter', () => {
@@ -80,7 +80,7 @@ describe('durability functionality', () => {
     const result = new pencil(2, 2);
 
     result.write('abc');
-    expect(result.currentText).toBe('ab ');
+    expect(result.currentText).toMatch('ab ');
   });
 
   it('should account for uppercase letter degradation', () => {
@@ -112,21 +112,21 @@ describe('sharpening functionality', () => {
 describe('eraser functionality', () => {
   it('should throw an error if the string to erase is not in the current text', () => {
     const result = new pencil(200, 5);
+    const message = 'The text you are trying to erase does not exist in the current text and cannot be erased'
 
     result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
     expect(() => {
       result.erase('metal');
-    }).toThrow();
+    }).toThrow(message);
   });
 
   it('should erase the last occurence of a word', () => {
     const result = new pencil(200, 5);
-
-    result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
     const expectedResult = 'How much wood would a woodchuck chuck if a woodchuck could       wood?';
 
+    result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
     result.erase('chuck');
-    expect(result.currentText).toBe(expectedResult);
+    expect(result.currentText).toMatch(expectedResult);
   });
 
   it('should erase the last occurence of a word multiple times', () => {
@@ -136,7 +136,7 @@ describe('eraser functionality', () => {
     result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
     result.erase('chuck');
     result.erase('chuck');
-    expect(result.currentText).toBe(expectedResult);
+    expect(result.currentText).toMatch(expectedResult);
   });
 });
 
@@ -201,6 +201,6 @@ describe('editing functionality', () => {
 
     result.write('An       a day keeps the doctor away');
     result.edit('artichoke', 3);
-    expect(result.currentText).toBe('An artich@k@ay keeps the doctor away');
+    expect(result.currentText).toMatch('An artich@k@ay keeps the doctor away');
   });
 });
