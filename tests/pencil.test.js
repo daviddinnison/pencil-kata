@@ -89,6 +89,13 @@ describe('durability functionality', () => {
     result.write('ABC');
     expect(result).toEqual(expect.objectContaining({ durability: 1, currentText: 'A  ' }));
   });
+  
+  it('should account for accented/special uppercase letters', () => {
+    const result = new pencil(6, 2);
+
+    result.write('aÉÙ 1');
+    expect(result).toEqual(expect.objectContaining({ durability: 0, currentText: 'aÉÙ 1' }));
+  })
 });
 
 describe('sharpening functionality', () => {

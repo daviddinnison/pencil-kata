@@ -35,6 +35,12 @@ const pencil = class {
         this.durability = this.durability - 1;
       }
 
+      // uppercase letter with accent
+      else if (/[A-Z\u00C0-\u00DC]+/.test(character)) {
+        result.push(character);
+        this.durability = this.durability - 2;
+      }
+
       //   everything else
       else {
         result.push(character);
