@@ -1,7 +1,7 @@
 const pencil = class {
   constructor(pencilDurability, length, eraserDurability) {
     if (pencilDurability < 0 || typeof pencilDurability !== 'number') {
-      throw new Error('Please supply a value for pencil durability as the first argument');
+      throw new Error('Please supply a number for pencil durability as the first argument');
     }
 
     if (length < 0 || typeof length !== 'number') {

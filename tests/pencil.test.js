@@ -8,7 +8,7 @@ describe('pencil initialization', () => {
   });
 
   it('should throw an error if a pencil is created without durability', () => {
-    const message = 'Please supply a value for pencil durability as the first argument';
+    const message = 'Please supply a number for pencil durability as the first argument';
 
     expect(() => {
       new pencil();
@@ -16,7 +16,7 @@ describe('pencil initialization', () => {
   });
 
   it('should throw an error if a pencil is created with an invalid type of durability input', () => {
-    const message = 'Please supply a value for pencil durability as the first argument';
+    const message = 'Please supply a number for pencil durability as the first argument';
 
     expect(() => {
       new pencil('a', 5);
