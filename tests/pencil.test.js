@@ -3,6 +3,7 @@ const pencil = require('../src/pencil');
 describe('pencil initialization', () => {
   it('should be given a value for durability and length', () => {
     const result = new pencil(1, 2);
+
     expect(result).toEqual(expect.objectContaining({ durability: 1, length: 2 }));
   });
 });
@@ -10,6 +11,7 @@ describe('pencil initialization', () => {
 describe('pencil writing functionality', () => {
   it('should accept a string as an input', () => {
     const result = new pencil(100, 5);
+
     result.write('test');
     expect(result.currentText).toBe('test');
   });
@@ -17,6 +19,7 @@ describe('pencil writing functionality', () => {
   it('should not accept anything besides strings as an input', () => {
     const badTypes = [null, undefined, NaN, 0, false];
     const result = new pencil(100, 5);
+
     badTypes.forEach(arg => {
       expect(() => {
         result.write(arg);
@@ -26,8 +29,10 @@ describe('pencil writing functionality', () => {
 
   it('should append additional messages to the existing message', () => {
     const result = new pencil(100, 5);
+
     const message1 = 'this is message 1';
     const message2 = 'this is message 2';
+
     result.write(message1);
     result.write(message2);
 
@@ -36,18 +41,21 @@ describe('pencil writing functionality', () => {
 
   it('should decrease durability by 2 if writing an uppercase letter', () => {
     const result = new pencil(100, 5);
+
     result.write('ABC');
     expect(result.durability).toBe(94);
   });
 
   it('should decrease durability by 1 if writing a lowercase letter', () => {
     const result = new pencil(100, 5);
+
     result.write('abc');
     expect(result.durability).toBe(97);
   });
 
   it('should not decrease durability if writing a space', () => {
     const result = new pencil(100, 5);
+
     result.write(' a   ');
     expect(result.durability).toBe(99);
     expect(result.currentText).toBe(' a   ');
@@ -55,6 +63,7 @@ describe('pencil writing functionality', () => {
 
   it('should decrease durability by 1 for misc characters', () => {
     const result = new pencil(100, 5);
+
     result.write('!?');
     expect(result.durability).toBe(98);
     expect(result.currentText).toBe('!?');
@@ -64,18 +73,21 @@ describe('pencil writing functionality', () => {
 describe('durability functionality', () => {
   it('durability should not be less than zero', () => {
     const result = new pencil(1, 2);
+
     result.write('abc');
     expect(result.durability).toBe(0);
   });
 
-  it('should write spaces if there is no more durability', () => {
+  it('should write spaces in place of characters if there is no more durability', () => {
     const result = new pencil(2, 2);
+
     result.write('abc');
     expect(result.currentText).toBe('ab ');
   });
 
   it('should account for uppercase letter degradation', () => {
     const result = new pencil(3, 2);
+
     result.write('ABC');
     expect(result.durability).toBe(1);
     expect(result.currentText).toBe('A  ');
@@ -85,6 +97,7 @@ describe('durability functionality', () => {
 describe('sharpening functionality', () => {
   it('should allow the ability to sharpen to initial durability value if long enough', () => {
     const result = new pencil(1, 1);
+
     result.write('a');
     result.sharpen();
     expect(result.durability).toBe(1);
@@ -92,17 +105,18 @@ describe('sharpening functionality', () => {
 
   it('should not allow sharpening if the pencil is too short', () => {
     const result = new pencil(0, 0);
+
     expect(() => {
       result.sharpen();
-    }).toThrow();
+    }).toThrow('The pencil is not long enough to be sharpened.');
   });
 });
 
 describe('eraser functionality', () => {
   it('should throw an error if the string to erase is not in the current text', () => {
     const result = new pencil(200, 5);
-    result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
 
+    result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
     expect(() => {
       result.erase('metal');
     }).toThrow();
@@ -110,6 +124,7 @@ describe('eraser functionality', () => {
 
   it('should erase the last occurence of a word', () => {
     const result = new pencil(200, 5);
+
     result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
     const expectedResult = 'How much wood would a woodchuck chuck if a woodchuck could       wood?';
 
@@ -119,9 +134,9 @@ describe('eraser functionality', () => {
 
   it('should erase the last occurence of a word multiple times', () => {
     const result = new pencil(200, 5);
-    result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
     const expectedResult = 'How much wood would a woodchuck chuck if a wood      could       wood?';
 
+    result.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood?');
     result.erase('chuck');
     result.erase('chuck');
     expect(result.currentText).toBe(expectedResult);
@@ -131,16 +146,19 @@ describe('eraser functionality', () => {
 describe('eraser degradation functionality', () => {
   it('if eraser durability is not supplied on pencil creation its value will be set to a default value of 20', () => {
     const result = new pencil(200, 5);
+
     expect(result.eraserDurability).toBe(20);
   });
 
   it('if eraser durability is supplied on pencil creation its value should match the input', () => {
     const result = new pencil(200, 5, 100);
+
     expect(result.eraserDurability).toBe(100);
   });
 
   it('eraser should degrade for each character it erases, excluding blank space', () => {
     const result = new pencil(200, 5);
+
     result.write('Buffalo Bill');
     result.erase('Bill');
     expect(result.eraserDurability).toBe(16);
@@ -149,6 +167,7 @@ describe('eraser degradation functionality', () => {
 
   it('eraser should erase from left to right, and if the eraser has 0 durability it will return the original character', () => {
     const result = new pencil(200, 5, 3);
+
     result.write('Buffalo Bill');
     result.erase('Bill');
     expect(result.eraserDurability).toBe(0);
@@ -159,8 +178,8 @@ describe('eraser degradation functionality', () => {
 describe('editing functionality', () => {
   it('should accept a desired string and a position to edit', () => {
     const result = new pencil(200, 5);
-    result.write('An       a day keeps the doctor away');
 
+    result.write('An       a day keeps the doctor away');
     expect(() => {
       result.edit(1, 1);
     }).toThrow('Please supply a string for editing');
@@ -172,6 +191,7 @@ describe('editing functionality', () => {
 
   it('should throw an error if the position does not exist in the text', () => {
     const result = new pencil(200, 5);
+
     result.write('abc');
     expect(() => {
       result.edit('a', 10);
@@ -183,6 +203,7 @@ describe('editing functionality', () => {
 
   it('should edit over whitespace with the given character, and replace existing characters with the @ character', () => {
     const result = new pencil(100, 5);
+    
     result.write('An       a day keeps the doctor away');
     result.edit('artichoke', 3);
     expect(result.currentText).toBe('An artich@k@ay keeps the doctor away');
