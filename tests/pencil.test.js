@@ -24,7 +24,7 @@ describe('pencil initialization', () => {
   });
 });
 
-describe('pencil writing functionality', () => {
+describe('pencil writing and durability functionality', () => {
   it('should accept a string as an input', () => {
     const result = new pencil(100, 5);
 
@@ -55,6 +55,13 @@ describe('pencil writing functionality', () => {
     expect(result.currentText).toMatch(message1 + message2);
   });
 
+  it('durability should not be less than zero', () => {
+    const result = new pencil(1, 2);
+
+    result.write('abc');
+    expect(result.durability).toBe(0);
+  });
+
   it('should decrease durability by 2 if writing an uppercase letter', () => {
     const result = new pencil(100, 5);
 
@@ -82,15 +89,6 @@ describe('pencil writing functionality', () => {
     result.write('!?');
     expect(result).toEqual(expect.objectContaining({ durability: 98, currentText: '!?' }));
   });
-});
-
-describe('durability functionality', () => {
-  it('durability should not be less than zero', () => {
-    const result = new pencil(1, 2);
-
-    result.write('abc');
-    expect(result.durability).toBe(0);
-  });
 
   it('should write spaces in place of characters if there is no more durability', () => {
     const result = new pencil(2, 2);
@@ -99,14 +97,15 @@ describe('durability functionality', () => {
     expect(result.currentText).toMatch('ab ');
   });
 
-  it('should account for uppercase letter degradation', () => {
+
+  it('should not write an uppercase character if durability is 1', () => {
     const result = new pencil(3, 2);
 
     result.write('ABC');
     expect(result).toEqual(expect.objectContaining({ durability: 1, currentText: 'A  ' }));
   });
 
-  it('should account for accented/special uppercase letters', () => {
+  it('should recognize accented/special uppercase letters as uppercase and decrease durability by 1', () => {
     const result = new pencil(6, 2);
 
     result.write('aÉÙ 1');
