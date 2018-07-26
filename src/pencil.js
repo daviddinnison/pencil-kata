@@ -4,6 +4,10 @@ const pencil = class {
       throw new Error('Please supply a value for pencil durability as the first argument');
     }
 
+    if (length < 0 || typeof length !== 'number') {
+      throw new Error('Please supply a absolute value for pencil length as the second argument');
+    }
+
     this.durability = pencilDurability;
     this.baseDurability = pencilDurability;
     this.eraserDurability = eraserDurability || 20;

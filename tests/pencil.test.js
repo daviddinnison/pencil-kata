@@ -14,6 +14,14 @@ describe('pencil initialization', () => {
       new pencil();
     }).toThrow(message);
   });
+
+  it('should throw an error if a pencil is created without length', () => {
+    const message = 'Please supply a absolute value for pencil length as the second argument';
+
+    expect(() => {
+      new pencil(100);
+    }).toThrow(message);
+  });
 });
 
 describe('pencil writing functionality', () => {
