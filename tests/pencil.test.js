@@ -1,7 +1,7 @@
 const pencil = require('../src/pencil');
 
 describe('pencil initialization', () => {
-  it('should be given a value for durability and length', () => {
+  it('should be given a value for durability and length on creation', () => {
     const result = new pencil(1, 2);
 
     expect(result).toEqual(expect.objectContaining({ durability: 1, length: 2 }));
@@ -15,12 +15,40 @@ describe('pencil initialization', () => {
     }).toThrow(message);
   });
 
+  it('should throw an error if a pencil is created with an invalid type of durability input', () => {
+    const message = 'Please supply a value for pencil durability as the first argument';
+
+    expect(() => {
+      new pencil('a', 5);
+    }).toThrow(message);
+  });
+
   it('should throw an error if a pencil is created without length', () => {
-    const message = 'Please supply a absolute value for pencil length as the second argument';
+    const message = 'Please supply an absolute number for pencil length as the second argument';
 
     expect(() => {
       new pencil(100);
     }).toThrow(message);
+  });
+
+  it('should throw an error if a pencil is created with an invalid type of length input', () => {
+    const message = 'Please supply an absolute number for pencil length as the second argument';
+
+    expect(() => {
+      new pencil(100, 'a');
+    }).toThrow(message);
+  });
+
+  it('if eraser durability is not supplied on pencil creation its value should be set to a default value of 20', () => {
+    const result = new pencil(200, 5);
+
+    expect(result.eraserDurability).toBe(20);
+  });
+
+  it('if eraser durability is supplied on pencil creation its value should match the input', () => {
+    const result = new pencil(200, 5, 100);
+
+    expect(result.eraserDurability).toBe(100);
   });
 });
 
@@ -32,7 +60,7 @@ describe('pencil writing and durability functionality', () => {
     expect(result.currentText).toMatch('test');
   });
 
-  it('should not accept anything besides strings as an input', () => {
+  it('should throw an error for if the input is not a string', () => {
     const badTypes = [null, undefined, NaN, 0, false];
     const result = new pencil(100, 5);
 
@@ -96,7 +124,6 @@ describe('pencil writing and durability functionality', () => {
     result.write('abc');
     expect(result.currentText).toMatch('ab ');
   });
-
 
   it('should not write an uppercase character if durability is 1', () => {
     const result = new pencil(3, 2);
@@ -164,18 +191,6 @@ describe('eraser functionality', () => {
 });
 
 describe('eraser degradation functionality', () => {
-  it('if eraser durability is not supplied on pencil creation its value will be set to a default value of 20', () => {
-    const result = new pencil(200, 5);
-
-    expect(result.eraserDurability).toBe(20);
-  });
-
-  it('if eraser durability is supplied on pencil creation its value should match the input', () => {
-    const result = new pencil(200, 5, 100);
-
-    expect(result.eraserDurability).toBe(100);
-  });
-
   it('eraser should degrade for each character it erases, excluding blank space', () => {
     const result = new pencil(200, 5);
 
@@ -184,7 +199,7 @@ describe('eraser degradation functionality', () => {
     expect(result).toEqual(expect.objectContaining({ eraserDurability: 16, currentText: 'Buffalo     ' }));
   });
 
-  it('eraser should erase from left to right, and if the eraser has 0 durability it will return the original character', () => {
+  it('eraser should erase from right to left, and if the eraser has 0 durability it will return the original character', () => {
     const result = new pencil(200, 5, 3);
 
     result.write('Buffalo Bill');

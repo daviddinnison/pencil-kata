@@ -1,11 +1,11 @@
 const pencil = class {
   constructor(pencilDurability, length, eraserDurability) {
-    if (!pencilDurability) {
+    if (pencilDurability < 0 || typeof pencilDurability !== 'number') {
       throw new Error('Please supply a value for pencil durability as the first argument');
     }
 
     if (length < 0 || typeof length !== 'number') {
-      throw new Error('Please supply a absolute value for pencil length as the second argument');
+      throw new Error('Please supply an absolute number for pencil length as the second argument');
     }
 
     this.durability = pencilDurability;
