@@ -57,16 +57,14 @@ describe('pencil writing functionality', () => {
     const result = new pencil(100, 5);
 
     result.write(' a   ');
-    expect(result.durability).toBe(99);
-    expect(result.currentText).toBe(' a   ');
+    expect(result).toEqual(expect.objectContaining({ durability: 99, currentText: ' a   ' }));
   });
 
   it('should decrease durability by 1 for misc characters', () => {
     const result = new pencil(100, 5);
 
     result.write('!?');
-    expect(result.durability).toBe(98);
-    expect(result.currentText).toBe('!?');
+    expect(result).toEqual(expect.objectContaining({ durability: 98, currentText: '!?' }));
   });
 });
 
@@ -89,8 +87,7 @@ describe('durability functionality', () => {
     const result = new pencil(3, 2);
 
     result.write('ABC');
-    expect(result.durability).toBe(1);
-    expect(result.currentText).toBe('A  ');
+    expect(result).toEqual(expect.objectContaining({ durability: 1, currentText: 'A  ' }));
   });
 });
 
@@ -161,8 +158,7 @@ describe('eraser degradation functionality', () => {
 
     result.write('Buffalo Bill');
     result.erase('Bill');
-    expect(result.eraserDurability).toBe(16);
-    expect(result.currentText).toBe('Buffalo     ');
+    expect(result).toEqual(expect.objectContaining({ eraserDurability: 16, currentText: 'Buffalo     ' }));
   });
 
   it('eraser should erase from left to right, and if the eraser has 0 durability it will return the original character', () => {
@@ -170,8 +166,7 @@ describe('eraser degradation functionality', () => {
 
     result.write('Buffalo Bill');
     result.erase('Bill');
-    expect(result.eraserDurability).toBe(0);
-    expect(result.currentText).toBe('Buffalo B   ');
+    expect(result).toEqual(expect.objectContaining({ eraserDurability: 0, currentText: 'Buffalo B   ' }));
   });
 });
 
@@ -203,7 +198,7 @@ describe('editing functionality', () => {
 
   it('should edit over whitespace with the given character, and replace existing characters with the @ character', () => {
     const result = new pencil(100, 5);
-    
+
     result.write('An       a day keeps the doctor away');
     result.edit('artichoke', 3);
     expect(result.currentText).toBe('An artich@k@ay keeps the doctor away');
