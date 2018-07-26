@@ -65,6 +65,7 @@ const pencil = class {
     }
 
     this.durability = this.baseDurability;
+    this.length--;
   }
 
   erase(string) {

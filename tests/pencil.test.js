@@ -123,9 +123,10 @@ describe('sharpening functionality', () => {
   });
 
   it('should not allow sharpening if the pencil is too short', () => {
-    const result = new pencil(100, 0);
+    const result = new pencil(100, 1);
 
     expect(() => {
+      result.sharpen();
       result.sharpen();
     }).toThrow('The pencil is not long enough to be sharpened.');
   });
